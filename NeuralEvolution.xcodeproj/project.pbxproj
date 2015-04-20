@@ -79,20 +79,20 @@
 			isa = PBXGroup;
 			children = (
 				6399F4511AE556B60003E007 /* main.cpp */,
+				6399F4611AE558510003E007 /* neuralEvolAlg.cpp */,
+				6399F4621AE558510003E007 /* neuralEvolAlg.h */,
+				6399F4641AE5587E0003E007 /* neuralNet.cpp */,
+				6399F4651AE5587E0003E007 /* neuralNet.h */,
+				6399F46A1AE558DA0003E007 /* Problem.cpp */,
+				6399F46B1AE558DA0003E007 /* Problem.h */,
+				6399F4671AE558AB0003E007 /* IOPair.cpp */,
+				6399F4681AE558AB0003E007 /* IOPair.h */,
 				6399F4581AE557C50003E007 /* inputNode.cpp */,
 				6399F4591AE557C50003E007 /* inputNode.h */,
 				6399F45B1AE557D80003E007 /* outputNode.cpp */,
 				6399F45C1AE557D80003E007 /* outputNode.h */,
 				6399F45E1AE558020003E007 /* hiddenNode.cpp */,
 				6399F45F1AE558020003E007 /* hiddenNode.h */,
-				6399F4611AE558510003E007 /* neuralEvolAlg.cpp */,
-				6399F4621AE558510003E007 /* neuralEvolAlg.h */,
-				6399F4641AE5587E0003E007 /* neuralNet.cpp */,
-				6399F4651AE5587E0003E007 /* neuralNet.h */,
-				6399F4671AE558AB0003E007 /* IOPair.cpp */,
-				6399F4681AE558AB0003E007 /* IOPair.h */,
-				6399F46A1AE558DA0003E007 /* Problem.cpp */,
-				6399F46B1AE558DA0003E007 /* Problem.h */,
 			);
 			path = NeuralEvolution;
 			sourceTree = "<group>";
@@ -277,6 +277,7 @@
 				6399F4571AE556B60003E007 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

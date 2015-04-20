@@ -10,5 +10,27 @@
 #define __NeuralEvolution__IOPair__
 
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
+using namespace std;
+
+class IOPair{
+public:
+    //Constructor function
+    IOPair(vector<vector<int> > grayMap, int digit);
+    
+    //Getters
+    vector<vector<int> > getGrayMap() { return this->grayMap; }
+    int getActualDigit() { return this->actualDigit; }
+    
+private:
+    int actualDigit;
+    vector<vector<int> > grayMap;
+    
+};
+
 
 #endif /* defined(__NeuralEvolution__IOPair__) */

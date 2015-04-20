@@ -10,5 +10,36 @@
 #define __NeuralEvolution__Problem__
 
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
+#include "IOPair.h"
+
+using namespace std;
+
+class Problem{
+public:
+    //Constructor
+    Problem(string fileName, int number);
+    
+    //Getters
+    vector<IOPair*> getGrayMaps() { return this->allGrayMaps; }
+
+    //Setters
+    void setGrayMaps(vector<IOPair*> grayMaps) { this->allGrayMaps = grayMaps; }
+    
+private:
+    //Vectors to hold each test/training input/output pairs
+    
+    //For the images (grayMaps)
+    vector<IOPair*> allGrayMaps;
+    
+    //Helper methods
+    IOPair* parseBitMap(ifstream &problemFile, string line);
+    IOPair* parseMatrix(ifstream &problemFile, string line);
+};
+
 
 #endif /* defined(__NeuralEvolution__Problem__) */
