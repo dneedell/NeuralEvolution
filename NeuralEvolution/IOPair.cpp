@@ -7,3 +7,12 @@
 //
 
 #include "IOPair.h"
+
+/**
+ *Constructor for N x N GrayMap
+ */
+
+IOPair::IOPair(vector<vector<int> > grayMap, int digit){
+    this->grayMap = grayMap;
+    this->actualDigit = digit;
+}

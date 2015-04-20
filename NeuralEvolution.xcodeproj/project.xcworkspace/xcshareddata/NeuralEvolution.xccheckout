@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>7668B9D4-B864-4075-AF10-4432086807F3</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>NeuralEvolution</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>B091DFB161D348401F1DDF6FEFE679C0B3A5C50E</key>
 		<string>https://github.com/dneedell/NeuralEvolution.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>NeuralEvolution.xcodeproj/project.xcworkspace</string>
+	<string>NeuralEvolution.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B091DFB161D348401F1DDF6FEFE679C0B3A5C50E</key>

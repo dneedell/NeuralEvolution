@@ -7,9 +7,14 @@
 //
 
 #include <iostream>
+#include <stdio.h>
 #include "neuralEvolAlg.h"
 
 using namespace::std;
+
+//Constant Variables:
+
+const int epochs = 50;
 
 int main(int argc, const char * argv[]) {
    
@@ -33,7 +38,7 @@ int main(int argc, const char * argv[]) {
         cout << "   pC              = crossover probability (double)" << endl;
         cout << "   pM              = mutation probability (double)" << endl;
         cout << "   generations     = max number of generations to run (int)" << endl;
-        exit(1);
+        exit(0);
         
     }
     
@@ -53,13 +58,10 @@ int main(int argc, const char * argv[]) {
         //New instance of the Neural Evolutionary algorithm
         neuralEvolAlg* alg = new neuralEvolAlg(trainName, testname, learnRate,
                                                selection, crossover, crossProb,
-                                               mutProb, genNum);
+                                               mutProb, genNum, epochs);
         
         //Run the algorithm
         alg->run();
         
     }
-    
-    
-    return 0;
 }

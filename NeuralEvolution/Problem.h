@@ -22,7 +22,7 @@ using namespace std;
 class Problem{
 public:
     //Constructor
-    Problem(string fileName, int number);
+    Problem(string fileName);
     
     //Getters
     vector<IOPair*> getGrayMaps() { return this->allGrayMaps; }
@@ -37,8 +37,7 @@ private:
     vector<IOPair*> allGrayMaps;
     
     //Helper methods
-    IOPair* parseBitMap(ifstream &problemFile, string line);
-    IOPair* parseMatrix(ifstream &problemFile, string line);
+    IOPair* parseGrayMap(ifstream &problemFile, string line);
 };
 
 

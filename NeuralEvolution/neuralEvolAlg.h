@@ -26,7 +26,7 @@ public:
     //Constructor function
     neuralEvolAlg(string trainFile, string testFile, double learnRate,
                   string selection, string crossover, double crossProb,
-                  double mutProb, int genNum);
+                  double mutProb, int genNum, int epochs);
     
     //main method
     void run();
@@ -34,7 +34,7 @@ public:
 private:
     Problem* training;
     Problem* tests;
-    NeuralNet* net;
+    neuralNet* net;
     int epochs;
     int problemType;
     

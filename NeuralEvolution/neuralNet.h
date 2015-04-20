@@ -21,12 +21,14 @@
 #include "IOPair.h"
 #include "Problem.h"
 
+using namespace::std;
+
 const double e = exp(1.0);
 
-class NeuralNet {
+class neuralNet {
 public:
     //Constructor
-    NeuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double alpha);
+    neuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double learnRate);
     
     bool train(IOPair* train);
     bool test(IOPair* test);
@@ -34,7 +36,7 @@ public:
 private:
     vector<InputNode*> inputNodes;
     vector<OutputNode*> outputNodes;
-    double alpha;
+    double learnRate;
     int activeFunc;
     
     void resetOutputSetTarget(IOPair* input);
