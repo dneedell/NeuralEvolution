@@ -1,19 +1,19 @@
 //
-//  neuralEvolAlg.cpp
+//  NeuralEvolAlg.cpp
 //  NeuralEvolution
 //
 //  Created by David Robert Needell on 4/20/15.
 //  Copyright (c) 2015 David Robert Needell. All rights reserved.
 //
 
-#include "neuralEvolAlg.h"
+#include "NeuralEvolAlg.h"
 
 /**
  *Constructor for the overarching algorithm. Read in the problem, create the
  *neural net, and set the number of epochs.
  */
 
-neuralEvolAlg::neuralEvolAlg(string trainFile, string testFile, double learnRate,
+NeuralEvolAlg::NeuralEvolAlg(string trainFile, string testFile, double learnRate,
                              string selection, string crossover, double crossProb,
                              double mutProb, int genNum, int epochs){
 

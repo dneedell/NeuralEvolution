@@ -1,13 +1,13 @@
 //
-//  hiddenNode.h
+//  HiddenNode.h
 //  NeuralEvolution
 //
 //  Created by David Robert Needell on 4/20/15.
 //  Copyright (c) 2015 David Robert Needell. All rights reserved.
 //
 
-#ifndef __NeuralEvolution__hiddenNode__
-#define __NeuralEvolution__hiddenNode__
+#ifndef __NeuralEvolution__HiddenNode__
+#define __NeuralEvolution__HiddenNode__
 
 #include <stdio.h>
 #include <iostream>
@@ -15,13 +15,18 @@
 #include <sstream>
 #include <vector>
 
+const double MAX = .15;
+const double MIN = -.15;
+
 using namespace std;
 
-class hiddenNode {
+class HiddenNode {
 public:
     //Constructors
-    hiddenNode();
-    hiddenNode(double activatedIn);
+    HiddenNode();
+    HiddenNode(int outputNum);
+    
+    void calcAllInitialEdgeWeight(int outputNum);
     
     //Getters and Setters
     
@@ -37,14 +42,20 @@ public:
     double getValuePrime() { return this->valuePrime; }
     void setValuePrime(double valuePrime) { this->valuePrime = valuePrime; }
     
+    //nodeNum represents a particular output node
+    double getOutputEdgeWeightForNode(int nodeNum) { return this->outputEdgeWeights[nodeNum]; }
+    void setOutputEdgeWeightForNode(int nodeNum, double edgeWeight) { this->outputEdgeWeights[nodeNum] = edgeWeight; }
+    
     void clearAllProperties();
     void printCharacteristics();
     
 private:
+    vector<double> outputEdgeWeights;
+    
     int output;
     double inVal;
     double activatedIn;
     double valuePrime;
 };
 
-#endif /* defined(__NeuralEvolution__hiddenNode__) */
+#endif /* defined(__NeuralEvolution__HiddenNode__) */

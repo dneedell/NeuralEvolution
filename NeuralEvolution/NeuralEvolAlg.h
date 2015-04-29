@@ -1,13 +1,13 @@
 //
-//  neuralEvolAlg.h
+//  NeuralEvolAlg.h
 //  NeuralEvolution
 //
 //  Created by David Robert Needell on 4/20/15.
 //  Copyright (c) 2015 David Robert Needell. All rights reserved.
 //
 
-#ifndef __NeuralEvolution__neuralEvolAlg__
-#define __NeuralEvolution__neuralEvolAlg__
+#ifndef __NeuralEvolution__NeuralEvolAlg__
+#define __NeuralEvolution__NeuralEvolAlg__
 
 #include <stdio.h>
 #include <iostream>
@@ -21,10 +21,10 @@
 
 using namespace::std;
 
-class neuralEvolAlg{
+class NeuralEvolAlg{
 public:
     //Constructor function
-    neuralEvolAlg(string trainFile, string testFile, double learnRate,
+    NeuralEvolAlg(string trainFile, string testFile, double learnRate,
                   string selection, string crossover, double crossProb,
                   double mutProb, int genNum, int epochs);
     
@@ -34,7 +34,7 @@ public:
 private:
     Problem* training;
     Problem* tests;
-    neuralNet* net;
+    NeuralNet* net;
     int epochs;
     int problemType;
     
@@ -44,4 +44,4 @@ private:
     
 };
 
-#endif /* defined(__NeuralEvolution__neuralEvolAlg__) */
+#endif /* defined(__NeuralEvolution__NeuralEvolAlg__) */

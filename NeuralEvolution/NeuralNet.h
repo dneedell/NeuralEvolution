@@ -1,13 +1,13 @@
 //
-//  neuralNet.h
+//  NeuralNet.h
 //  NeuralEvolution
 //
 //  Created by David Robert Needell on 4/20/15.
 //  Copyright (c) 2015 David Robert Needell. All rights reserved.
 //
 
-#ifndef __NeuralEvolution__neuralNet__
-#define __NeuralEvolution__neuralNet__
+#ifndef __NeuralEvolution__NeuralNet__
+#define __NeuralEvolution__NeuralNet__
 
 #include <stdio.h>
 #include <iostream>
@@ -18,6 +18,8 @@
 
 #include "InputNode.h"
 #include "OutputNode.h"
+#include "HiddenNode.h"
+
 #include "IOPair.h"
 #include "Problem.h"
 
@@ -25,27 +27,33 @@ using namespace::std;
 
 const double e = exp(1.0);
 
-class neuralNet {
+class NeuralNet {
 public:
     //Constructor
-    neuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double learnRate);
+    NeuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double learnRate);
     
     bool train(IOPair* train);
     bool test(IOPair* test);
     
 private:
     vector<InputNode*> inputNodes;
+    vector<HiddenNode*> hiddenNodes;
     vector<OutputNode*> outputNodes;
+    
     double learnRate;
     int activeFunc;
     
     void resetOutputSetTarget(IOPair* input);
-    void bitMapSetInput(IOPair* input);
-    void matrixSetInput(IOPair* input);
+    void grayMapSetInput(IOPair* input);
     void setBiasNode();
     void setAndCalc(int index, int value);
     void calcInputNodeContribution(InputNode* input);
-    OutputNode* findBest();
+    
+    void activateAllHidden();
+    void activateHiddenNodeIn(HiddenNode* hidden);
+    
+    OutputNode* findBestOutput();
+
     void updateWeights();
     
     double calcError(OutputNode* output, int nodeNum, int size);
@@ -57,4 +65,4 @@ private:
 };
 
 
-#endif /* defined(__NeuralEvolution__neuralNet__) */
+#endif /* defined(__NeuralEvolution__NeuralNet__) */

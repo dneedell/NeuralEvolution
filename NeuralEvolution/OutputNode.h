@@ -1,13 +1,13 @@
 //
-//  outputNode.h
+//  OutputNode.h
 //  NeuralEvolution
 //
 //  Created by David Robert Needell on 4/20/15.
 //  Copyright (c) 2015 David Robert Needell. All rights reserved.
 //
 
-#ifndef __NeuralEvolution__outputNode__
-#define __NeuralEvolution__outputNode__
+#ifndef __NeuralEvolution__OutputNode__
+#define __NeuralEvolution__OutputNode__
 
 #include <stdio.h>
 #include <iostream>
@@ -58,4 +58,4 @@ private:
     double squaredError;
 };
 
-#endif /* defined(__NeuralEvolution__outputNode__) */
+#endif /* defined(__NeuralEvolution__OutputNode__) */
