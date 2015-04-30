@@ -14,9 +14,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-
-const double MAX = .15;
-const double MIN = -.15;
+#include "InputNode.h"
 
 using namespace std;
 
@@ -45,7 +43,7 @@ public:
     //nodeNum represents a particular output node
     double getOutputEdgeWeightForNode(int nodeNum) { return this->outputEdgeWeights[nodeNum]; }
     void setOutputEdgeWeightForNode(int nodeNum, double edgeWeight) { this->outputEdgeWeights[nodeNum] = edgeWeight; }
-    
+        
     void clearAllProperties();
     void printCharacteristics();
     
@@ -56,6 +54,7 @@ private:
     double inVal;
     double activatedIn;
     double valuePrime;
+
 };
 
 #endif /* defined(__NeuralEvolution__HiddenNode__) */

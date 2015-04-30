@@ -53,10 +53,13 @@ private:
     void activateHiddenNodeIn(HiddenNode* hidden);
     
     OutputNode* findBestOutput();
+    double findBestHidden();
 
-    void updateWeights();
+    void updateInputWeights();
+    void updateHiddenWeights();
     
     double calcError(OutputNode* output, int nodeNum, int size);
+    double calcHiddenError(HiddenNode* hidden, int nodeNum, int size);
     double calcSquaredError(double error);
     
     double sigmoidPrime(double val);

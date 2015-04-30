@@ -57,18 +57,72 @@ bool NeuralNet::train(IOPair* input){
     OutputNode* best = findBestOutput();
     //best->printCharacteristics();
     
-    //Update the weights according to error calculated
-    updateWeights();
-    
     //backprop from output to hidden weights
+    updateHiddenWeights();
     
     //backprop from hidden to input weights
-    
+    updateInputWeights();
+
     //test if output matches target output
     if (best->getOutput() == best->getTarget()){
         return true;
     }
     return false;
+}
+
+/**
+ *Updates the edge weights from the Hidden Nodes to the Output Nodes
+ */
+
+void NeuralNet::updateHiddenWeights(){
+    /*
+     *Update edge weights based on current weight, alpha, input value, error,
+     *and squared error
+     */
+    for (HiddenNode* hidden : this->hiddenNodes){
+        double curVal = hidden->getActivatedInValue();
+        for (int i = 0; i < this->outputNodes.size(); i++){
+            OutputNode* output = this->outputNodes[i];
+            
+            double curEdge = hidden->getOutputEdgeWeightForNode(i);
+            double err = output->getError();
+            //double squaredErr = output->getSquaredError();
+            double valPrime = output->getValuePrime();
+            
+            hidden->setOutputEdgeWeightForNode(i, curEdge+(this->learnRate*curVal*err*valPrime));
+        }
+    }
+}
+
+/**
+ *Updates the edge weights from the Input Nodes to the Hidden Nodes
+ */
+
+void NeuralNet::updateInputWeights(){
+    /*
+     *Update edge weights based on current weight, alpha, input value, error,
+     *and squared error
+     */
+    int count = 0;
+    for (InputNode* input : this->inputNodes){
+        double curVal = input->getValue();
+        double curEdge = input->getHiddenEdgeWeightForNode(count);
+        
+        double sum = 0;
+        for (int i = 0; i < this->outputNodes.size(); i++){
+            OutputNode* output = this->outputNodes[i];
+            HiddenNode* hidden = this->hiddenNodes[i];
+            
+            double curEdgeWeight = input->getHiddenEdgeWeightForNode(i);
+            double err = output->getError();
+            double valOutPrime = output->getValuePrime();
+            double valHidPrime = hidden->getValuePrime();
+            
+            sum += curEdgeWeight*err*valOutPrime*valHidPrime;
+        }
+        input->setHiddenEdgeWeightForNode(count, curEdge+(this->learnRate*curVal*sum));
+        count++;
+    }
 }
 
 /**
@@ -83,7 +137,6 @@ void NeuralNet::grayMapSetInput(IOPair* input){
             setAndCalc((i*(int)map.size())+j, map[i][j]);
         }
     }
-    
 }
 
 /**
@@ -174,11 +227,16 @@ OutputNode* NeuralNet::findBestOutput(){
             best = output;
         }
         
+        double error = calcError(output, count, (int) this->outputNodes.size());
+        output->setError(error);
+        output->setSquaredError(calcSquaredError(error));
+        
         count++;
     }
     
     return best;
 }
+
 
 /**
  *Applies the sigmoid activation function to the sum of all inputs (val*edgeweight)

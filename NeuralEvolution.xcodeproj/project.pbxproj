@@ -63,7 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				6399F4501AE556B60003E007 /* NeuralEvolution */,
-				6399F44F1AE556B60003E007 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +72,7 @@
 				6399F44E1AE556B60003E007 /* NeuralEvolution */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		6399F4501AE556B60003E007 /* NeuralEvolution */ = {
@@ -89,10 +89,11 @@
 				6399F4681AE558AB0003E007 /* IOPair.h */,
 				6399F4581AE557C50003E007 /* InputNode.cpp */,
 				6399F4591AE557C50003E007 /* InputNode.h */,
-				6399F45B1AE557D80003E007 /* OutputNode.cpp */,
-				6399F45C1AE557D80003E007 /* OutputNode.h */,
 				6399F45E1AE558020003E007 /* HiddenNode.cpp */,
 				6399F45F1AE558020003E007 /* HiddenNode.h */,
+				6399F45B1AE557D80003E007 /* OutputNode.cpp */,
+				6399F45C1AE557D80003E007 /* OutputNode.h */,
+				6399F44F1AE556B60003E007 /* Products */,
 			);
 			path = NeuralEvolution;
 			sourceTree = "<group>";

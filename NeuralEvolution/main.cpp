@@ -56,7 +56,7 @@ int main(int argc, const char * argv[]) {
         int genNum = stoi(argv[8]);
         
         //New instance of the Neural Evolutionary algorithm
-        neuralEvolAlg* alg = new neuralEvolAlg(trainName, testname, learnRate,
+        NeuralEvolAlg* alg = new NeuralEvolAlg(trainName, testname, learnRate,
                                                selection, crossover, crossProb,
                                                mutProb, genNum, epochs);
         
