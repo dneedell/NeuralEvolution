@@ -24,7 +24,7 @@ using namespace::std;
 class NeuralEvolAlg{
 public:
     //Constructor function
-    NeuralEvolAlg(string trainFile, string testFile, double learnRate,
+    NeuralEvolAlg(string newTrainFile, string newTestFile, double learnRate,
                   string selection, string crossover, double crossProb,
                   double mutProb, int genNum, int epochs);
     

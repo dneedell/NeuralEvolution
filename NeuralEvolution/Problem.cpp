@@ -10,16 +10,18 @@
 #include <iostream>
 #include <stdio.h>
 
-Problem::Problem(string fileName) {
-    ifstream file;
-    file.open(fileName);
-    string line;
-    fgets(line, 511, file);
+using namespace std;
+
+Problem::Problem(char fileName[]) {
+    FILE *file;
+    file = std::fopen(fileName, "r");
+    char line[512];
+    std::fgets(line, 511, file);
     int type;
     sscanf(line, "P%d", &type);
     if (type != 5 && type != 2) {
         printf("ERROR: Only handles pgm files (type P5 or P2)\n");
-        file.close();
+        fclose(file);
         return;
     }
     /*
@@ -34,7 +36,7 @@ Problem::Problem(string fileName) {
     sscanf(line, "%d", &maxval);
     if (maxval > 255){
         printf("ERROR: Only handles pgm files of 8 bits or less.\n");
-        file.close();
+        fclose(file);
         return;
     }
     /*
@@ -47,10 +49,10 @@ Problem::Problem(string fileName) {
             }
         }
     }
-    string intbuf;
+    char intbuf[100];
     if (type == 2){
-        for (i = 0; i < nr; i++) {
-            for (j = 0; j < nc; j++) {
+        for (int i = 0; i < nr; i++) {
+            for (int j = 0; j < nc; j++) {
                 bool found = false;
                 int k = 0;
                 while (!found) {
@@ -63,10 +65,10 @@ Problem::Problem(string fileName) {
                         found = true;
                     }
                 }
+                grayMap[i][j] = atoi(intbuf);
             }
-            grayMap[i][j] = atoi(intbuf);
         }
     }
-    file.close();
+    fclose(file);
     return;
 }
