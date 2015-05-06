@@ -31,7 +31,7 @@ Problem::Problem(char fileName[]) {
     int nc;
     int nr;
     sscanf(line, "%d %d", &nc, &nr);
-    int grayMap[nr][nc];
+    vector<vector<int> > grayMap;
     int maxval;
     sscanf(line, "%d", &maxval);
     if (maxval > 255){
@@ -70,5 +70,6 @@ Problem::Problem(char fileName[]) {
         }
     }
     fclose(file);
+    
     return;
 }
