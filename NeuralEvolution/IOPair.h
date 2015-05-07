@@ -6,6 +6,17 @@
 //  Copyright (c) 2015 David Robert Needell. All rights reserved.
 //
 
+//Based on image reading code from CMU (listed below)
+
+/*
+ ******************************************************************
+ * HISTORY
+ * 15-Oct-94  Jeff Shufelt (js), Carnegie Mellon University
+ *      Prepared for 15-681, Fall 1994.
+ *
+ ******************************************************************
+ */
+
 #ifndef __NeuralEvolution__IOPair__
 #define __NeuralEvolution__IOPair__
 
@@ -17,27 +28,42 @@
 
 using namespace std;
 
+//From the dataset obtained from CMU
+const string names[] = {"an2i", "at33", "boland", "bpm", "ch4f", "cheyer", "choon",
+                        "danieln", "glickman", "karyadi", "kawamura", "kk49",
+                        "megak", "mitchell", "night", "phoebe", "saavik", "steffi",
+                        "sz24", "tammo"};
+
 class IOPair{
 public:
     //Constructor function
     IOPair(char fileName[]);
     
     //Getters
-    vector<vector<int> > getGrayMap() { return this->grayMap; }
     int getActualPersonNum() { return this->actualPersonNum; }
     string getActualPerson() { return this->actualPerson; }
+    string getFile() { return this->entireFile; }
+    vector<string> getTraits() { return this->traits; }
+    
+    int getRows() { return this->rows; }
+    int getCols() { return this->cols; }
+    vector<vector<int> > getGrayMap() { return this->grayMap; }
     
 private:
+    string entireFile;
+    vector<string> traits;
+    string actualPerson;
     //TODO: consider using a number to represent a person
     int actualPersonNum;
-    //TODO: consider dividing the file name into traits (delimiter = _)
-    vector<string> traits;
     
-    string actualPerson;
+    int rows;
+    int cols;
     vector<vector<int> > grayMap;
     
     void initGrayMap(int rows, int cols);
     string getNameFromFile(char fileName[]);
+    void getTraitsFromName();
+    void assignNum();
     
 };
 

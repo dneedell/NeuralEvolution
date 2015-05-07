@@ -34,8 +34,10 @@ IOPair::IOPair(char fileName[]){
         return;
     }
     
-    //Set name here!
-    this->actualPerson = getNameFromFile(fileName);
+    //Set name, get traits of picture, assign number
+    this->entireFile = getNameFromFile(fileName);
+    getTraitsFromName();
+    assignNum();
 
     //Scan pnm type information, expecting P5
     std::fgets(line, 511, file);
@@ -49,6 +51,8 @@ IOPair::IOPair(char fileName[]){
     //Get dimensions of pgm
     fgets(line, 511, file);
     sscanf(line, "%d %d", &nc, &nr);
+    this->rows = nr;
+    this->cols = nc;
     sscanf(line, "%d", &maxval);
     if (maxval > 255){
         printf("ERROR: Only handles pgm files of 8 bits or less.\n");
@@ -140,6 +144,38 @@ string IOPair::getNameFromFile(char fileName[]){
     
     return partTest;
 }
+
+/**
+ *Divides the file name into a vector of traits (delimiter = _)
+ */
+
+void IOPair::getTraitsFromName(){
+    string name = this->entireFile;
+    int start = 0;
+    int end = -1;
+    for (int i = 0; i < name.length(); i++){
+        if (name[i] == '_'){
+            end = i;
+            this->traits.push_back(name.substr(start, end-start));
+            start = end+1;
+        }
+    }
+}
+
+/**
+ *Assign a number (the target) to the problem by matching the name (alphabetically)
+ */
+
+void IOPair::assignNum(){
+    cout << sizeof(names) / sizeof(string) << endl;
+    for (int i = 0; i < sizeof(names) / sizeof(string); i++){
+        if (names[i] == this->traits[0]){
+            this->actualPersonNum = i;
+            break;
+        }
+    }
+}
+
 
 
 

@@ -44,8 +44,8 @@ NeuralEvolAlg::NeuralEvolAlg(string trainFile, string testFile, double learnRate
 int NeuralEvolAlg::getNumInputNodes(){
     vector<IOPair*> allGrayMaps = this->training->getGrayMaps();
     IOPair* first = allGrayMaps[0];
-    vector<vector<int> > grayMap = first->getGrayMap();
-    return (int) grayMap.size()* (int) grayMap[0].size();
+
+    return first->getRows() * first->getCols();
 }
 
 
