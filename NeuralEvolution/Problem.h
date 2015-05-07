@@ -22,7 +22,7 @@ using namespace std;
 class Problem{
 public:
     //Constructor
-    Problem(char fileName[]);
+    Problem(string fileName);
     
     //Getters
     vector<IOPair*> getGrayMaps() { return this->allGrayMaps; }

@@ -259,9 +259,39 @@ double NeuralNet::sigmoidPrime(double val){
 }
 
 /**
+ *Calculate the error by subtracting the calculate output from the target output
+ */
+
+double NeuralNet::calcError(OutputNode* output, int nodeNum, int size){
+    //if desired number equals correct node in output node vector, 1-activatedVal
+    if (nodeNum == output->getTarget()){
+        return 1.0-output->getActivatedInValue();
+    }
+    else {
+        return 0.0-output->getActivatedInValue();
+    }
+    
+    return 0;
+    
+}
+
+/**
  *Calculate the squared error
  */
 
 double NeuralNet::calcSquaredError(double error){
     return .5*pow(error, 2);
+}
+
+/**
+ *Resets the vector of output nodes and sets the target according to problem passed
+ *in
+ */
+
+void NeuralNet::resetOutputSetTarget(IOPair* input){
+    //reset all output nodes
+    for (OutputNode* output : this->outputNodes){
+        output->clearAllProperties();
+        //output->setTarget(input->getActualDigit());
+    }
 }

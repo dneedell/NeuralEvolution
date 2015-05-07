@@ -18,7 +18,7 @@ const int epochs = 50;
 
 int main(int argc, const char * argv[]) {
    
-    srand( time( NULL ) );
+    srand( (int) time( NULL ) );
     
     //Make sure number of command line arguments is correct (print if not)
 
@@ -38,6 +38,7 @@ int main(int argc, const char * argv[]) {
         cout << "   pC              = crossover probability (double)" << endl;
         cout << "   pM              = mutation probability (double)" << endl;
         cout << "   generations     = max number of generations to run (int)" << endl;
+        //cout << "   epochs          = number of times to train net (int)" << endl;
         exit(0);
         
     }
@@ -54,6 +55,7 @@ int main(int argc, const char * argv[]) {
         double crossProb = stod(argv[6]);
         double mutProb = stod(argv[7]);
         int genNum = stoi(argv[8]);
+        //int epochs = stoi(argv[9]);
         
         //New instance of the Neural Evolutionary algorithm
         NeuralEvolAlg* alg = new NeuralEvolAlg(trainName, testname, learnRate,
@@ -61,7 +63,9 @@ int main(int argc, const char * argv[]) {
                                                mutProb, genNum, epochs);
         
         //Run the algorithm
-        alg->run();
+        //alg->run();
+        
+        cout << "Done!" << endl;
         
     }
 }

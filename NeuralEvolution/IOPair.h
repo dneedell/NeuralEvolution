@@ -20,15 +20,24 @@ using namespace std;
 class IOPair{
 public:
     //Constructor function
-    IOPair(vector<vector<int> > grayMap, int digit);
+    IOPair(char fileName[]);
     
     //Getters
     vector<vector<int> > getGrayMap() { return this->grayMap; }
-    int getActualDigit() { return this->actualDigit; }
+    int getActualPersonNum() { return this->actualPersonNum; }
+    string getActualPerson() { return this->actualPerson; }
     
 private:
-    int actualDigit;
+    //TODO: consider using a number to represent a person
+    int actualPersonNum;
+    //TODO: consider dividing the file name into traits (delimiter = _)
+    vector<string> traits;
+    
+    string actualPerson;
     vector<vector<int> > grayMap;
+    
+    void initGrayMap(int rows, int cols);
+    string getNameFromFile(char fileName[]);
     
 };
 

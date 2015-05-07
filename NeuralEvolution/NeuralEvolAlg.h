@@ -21,6 +21,9 @@
 
 using namespace::std;
 
+const int OUTPUTNODES = 20;
+const int HIDDENNODES = 20;
+
 class NeuralEvolAlg{
 public:
     //Constructor function
@@ -35,10 +38,18 @@ private:
     Problem* training;
     Problem* tests;
     NeuralNet* net;
+    
+    double learnRate;
+    string selection;
+    string crossover;
+    double crossProb;
+    double mutProb;
+    int genNum;
     int epochs;
     int problemType;
     
-    IOPair* getRandomTrainingProblem();
+    int getNumInputNodes();
+    
     double runTraining(vector<IOPair*> problems);
     double runTests();
     
