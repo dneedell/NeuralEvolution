@@ -167,7 +167,7 @@ void IOPair::getTraitsFromName(){
  */
 
 void IOPair::assignNum(){
-    cout << sizeof(names) / sizeof(string) << endl;
+    //cout << sizeof(names) / sizeof(string) << endl;
     for (int i = 0; i < sizeof(names) / sizeof(string); i++){
         if (names[i] == this->traits[0]){
             this->actualPersonNum = i;
