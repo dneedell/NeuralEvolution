@@ -18,7 +18,7 @@ const int epochs = 75;
 
 int main(int argc, const char * argv[]) {
    
-    //srand( (int) time( NULL ) );
+    srand( (int) time( NULL ) );
     
     //Make sure number of command line arguments is correct (print if not)
 
