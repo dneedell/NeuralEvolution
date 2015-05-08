@@ -47,18 +47,17 @@ public:
     
     int getRows() { return this->rows; }
     int getCols() { return this->cols; }
-    vector<vector<int> > getGrayMap() { return this->grayMap; }
+    vector<vector<double> > getGrayMap() { return this->grayMap; }
     
 private:
     string entireFile;
     vector<string> traits;
     string actualPerson;
-    //TODO: consider using a number to represent a person
     int actualPersonNum;
     
     int rows;
     int cols;
-    vector<vector<int> > grayMap;
+    vector<vector<double> > grayMap;
     
     void initGrayMap(int rows, int cols);
     string getNameFromFile(char fileName[]);

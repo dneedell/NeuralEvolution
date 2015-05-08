@@ -30,5 +30,4 @@ void InputNode::calcAllInitialEdgeWeight(int hiddenNum){
         double val = MIN + f * (MAX - MIN);
         this->hiddenEdgeWeights.push_back(val);
     }
-    
 }

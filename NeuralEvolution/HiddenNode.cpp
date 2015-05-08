@@ -33,4 +33,14 @@ void HiddenNode::calcAllInitialEdgeWeight(int outputNum){
     
 }
 
+/**
+ *
+ */
+
+void HiddenNode::clearAllProperties(){
+    this->inVal = 0;
+    this->activatedIn = 0;
+    this->valuePrime = 0;
+}
+
 

@@ -21,7 +21,7 @@ NeuralNet::NeuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double
     }
     
     //bias node
-    this->inputNodes.push_back(new InputNode(numOutNodes));
+    this->inputNodes.push_back(new InputNode(numHiddenNodes));
     
     //create a new vector of hidden nodes
     for (int i = 0; i < numHiddenNodes; i++){
@@ -43,7 +43,7 @@ NeuralNet::NeuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double
 
 bool NeuralNet::train(IOPair* input){
     //Reset output nodes
-    resetOutputSetTarget(input);
+    resetOutputAndHidden(input);
     
     //Perform initialization of input nodes and calculation of in for matrix
     grayMapSetInput(input);
@@ -69,6 +69,34 @@ bool NeuralNet::train(IOPair* input){
     }
     return false;
 }
+
+/**
+ *Perform the tests!
+ */
+
+bool NeuralNet::test(IOPair* input){
+    //Reset output nodes
+    resetOutputAndHidden(input);
+    
+    //Perform initialization of input nodes and calculation of in for matrix
+    grayMapSetInput(input);
+    
+    setBiasNode();
+    
+    //Activate in values for each hidden node
+    activateAllHidden();
+    
+    //Find output node with best activated value
+    OutputNode* best = findBestOutput();
+    //best->printCharacteristics();
+    
+    if (best->getOutput() == best->getTarget()){
+        return true;
+    }
+    return false;
+}
+
+
 
 /**
  *Updates the edge weights from the Hidden Nodes to the Output Nodes
@@ -103,25 +131,28 @@ void NeuralNet::updateInputWeights(){
      *Update edge weights based on current weight, alpha, input value, error,
      *and squared error
      */
-    int count = 0;
-    for (InputNode* input : this->inputNodes){
+    for (int k = 0; k < this->inputNodes.size(); k++){
+        InputNode* input = this->inputNodes[k];
         double curVal = input->getValue();
-        double curEdge = input->getHiddenEdgeWeightForNode(count);
         
-        double sum = 0;
-        for (int i = 0; i < this->outputNodes.size(); i++){
-            OutputNode* output = this->outputNodes[i];
-            HiddenNode* hidden = this->hiddenNodes[i];
+        for (int j = 0; j < this->hiddenNodes.size(); j++){
+            HiddenNode* hidden = this->hiddenNodes[j];
+            double curHiddenWeight = input->getHiddenEdgeWeightForNode(j);
+            double hiddenPrime = hidden->getValuePrime();
             
-            double curEdgeWeight = input->getHiddenEdgeWeightForNode(i);
-            double err = output->getError();
-            double valOutPrime = output->getValuePrime();
-            double valHidPrime = hidden->getValuePrime();
-            
-            sum += curEdgeWeight*err*valOutPrime*valHidPrime;
+            double sum = 0;
+            for (int i = 0; i < this->outputNodes.size(); i++){
+                OutputNode* output = this->outputNodes[i];
+                
+                double curOutWeight = hidden->getOutputEdgeWeightForNode(i);
+                double err = output->getError();
+                double valOutPrime = output->getValuePrime();
+                
+                sum += curOutWeight*err*valOutPrime;
+            }
+            sum *= hiddenPrime;
+            input->setHiddenEdgeWeightForNode(j, curHiddenWeight+(this->learnRate*curVal*sum));
         }
-        input->setHiddenEdgeWeightForNode(count, curEdge+(this->learnRate*curVal*sum));
-        count++;
     }
 }
 
@@ -131,9 +162,9 @@ void NeuralNet::updateInputWeights(){
  */
 
 void NeuralNet::grayMapSetInput(IOPair* input){
-    vector<vector<int>> map = input->getGrayMap();
-    for (int i = 0; i < map[0].size(); i++){
-        for (int j = 0; j < map.size(); j++){
+    vector<vector<double>> map = input->getGrayMap();
+    for (int i = 0; i < input->getRows(); i++){
+        for (int j = 0; j < input->getCols(); j++){
             setAndCalc((i*(int)map.size())+j, map[i][j]);
         }
     }
@@ -144,7 +175,7 @@ void NeuralNet::grayMapSetInput(IOPair* input){
  *of an output node
  */
 
-void NeuralNet::setAndCalc(int index, int value){
+void NeuralNet::setAndCalc(int index, double value){
     InputNode* curInput = this->inputNodes[index];
     curInput->setValue(value);
     
@@ -179,7 +210,7 @@ void NeuralNet::calcInputNodeContribution(InputNode* input){
 
 void NeuralNet::setBiasNode(){
     //set bias node (last in inputnodes vector) to 1
-    this->inputNodes[this->inputNodes.size()-1]->setValue(1);
+    this->inputNodes[this->inputNodes.size()-1]->setValue(1.0);
     calcInputNodeContribution(this->inputNodes[this->inputNodes.size()-1]);
 }
 
@@ -213,10 +244,13 @@ OutputNode* NeuralNet::findBestOutput(){
     int count = 0;
     OutputNode* best = new OutputNode();
     
-    for (OutputNode* output : this->outputNodes){
+    for (int i = 0; i < this->outputNodes.size(); i++){
+        OutputNode* output = this->outputNodes[i];
+        
         double sum = 0;
-        for (HiddenNode* hidden : this->hiddenNodes){
-            sum += hidden->getActivatedInValue();
+        for (int j = 0; j < this->hiddenNodes.size(); j++){
+            HiddenNode* hidden = this->hiddenNodes[j];
+            sum += hidden->getActivatedInValue()*hidden->getOutputEdgeWeightForNode(i);
         }
         output->setInValue(sum);
         output->setActivatedInValue(sigmoidFunction(sum));
@@ -244,8 +278,8 @@ OutputNode* NeuralNet::findBestOutput(){
  */
 
 double NeuralNet::sigmoidFunction(double val){
-    //cout << 1.0/(1.0+pow(e, (-1.0*val)+.5)) << endl;
     return 1.0/(1.0+pow(e, (-1.0*val)+.5));
+    //return (1.0 / (1.0 + exp(-val)));
     //return 1.0/(1.0+pow(e, (-1.0*val)));
 }
 
@@ -288,10 +322,16 @@ double NeuralNet::calcSquaredError(double error){
  *in
  */
 
-void NeuralNet::resetOutputSetTarget(IOPair* input){
+void NeuralNet::resetOutputAndHidden(IOPair* input){
     //reset all output nodes
     for (OutputNode* output : this->outputNodes){
         output->clearAllProperties();
-        //output->setTarget(input->getActualDigit());
+        output->setTarget(input->getActualPersonNum());
+    }
+    for (HiddenNode* hidden : this->hiddenNodes){
+        hidden->clearAllProperties();
     }
 }
+
+
+

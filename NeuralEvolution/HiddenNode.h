@@ -27,10 +27,6 @@ public:
     void calcAllInitialEdgeWeight(int outputNum);
     
     //Getters and Setters
-    
-    int getOutput() { return this->output; }
-    void setOutput(int output) { this->output = output; }
-    
     double getInValue() { return this->inVal; }
     void setInValue(double inVal) { this->inVal = inVal; }
     
@@ -50,7 +46,6 @@ public:
 private:
     vector<double> outputEdgeWeights;
     
-    int output;
     double inVal;
     double activatedIn;
     double valuePrime;

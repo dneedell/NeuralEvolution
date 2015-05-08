@@ -14,11 +14,11 @@ using namespace::std;
 
 //Constant Variables:
 
-const int epochs = 50;
+const int epochs = 75;
 
 int main(int argc, const char * argv[]) {
    
-    srand( (int) time( NULL ) );
+    //srand( (int) time( NULL ) );
     
     //Make sure number of command line arguments is correct (print if not)
 
@@ -63,7 +63,7 @@ int main(int argc, const char * argv[]) {
                                                mutProb, genNum, epochs);
         
         //Run the algorithm
-        //alg->run();
+        alg->run();
         
         cout << "Done!" << endl;
         

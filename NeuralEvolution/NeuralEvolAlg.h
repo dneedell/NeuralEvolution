@@ -32,7 +32,7 @@ public:
                   double mutProb, int genNum, int epochs);
     
     //main method
-    void run();
+    vector<double> run();
     
 private:
     Problem* training;
@@ -46,7 +46,6 @@ private:
     double mutProb;
     int genNum;
     int epochs;
-    int problemType;
     
     int getNumInputNodes();
     

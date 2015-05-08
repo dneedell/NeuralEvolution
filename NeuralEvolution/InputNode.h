@@ -26,15 +26,15 @@ public:
     InputNode(int hiddenNum);
     
     //Getters and Setters
-    int getValue() { return this->value; }
-    void setValue(int value) { this->value = value; }
+    double getValue() { return this->value; }
+    void setValue(double value) { this->value = value; }
     
     //nodeNum represents a particular hidden node
     double getHiddenEdgeWeightForNode(int nodeNum) { return this->hiddenEdgeWeights[nodeNum]; }
     void setHiddenEdgeWeightForNode(int nodeNum, double edgeWeight) { this->hiddenEdgeWeights[nodeNum] = edgeWeight; }
     
 private:
-    int value;
+    double value;
     vector<double> hiddenEdgeWeights;
     
     void calcAllInitialEdgeWeight(int outputNum);

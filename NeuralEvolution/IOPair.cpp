@@ -78,7 +78,8 @@ IOPair::IOPair(char fileName[]){
     if (type==5){
         for (int i=0; i<nr; i++){
             for (int j=0; j<nc; j++){
-                this->grayMap[i][j] = fgetc(file);
+                int rawPixel = fgetc(file);
+                this->grayMap[i][j] = rawPixel/255.0;
             }
         }
     }
@@ -98,7 +99,8 @@ IOPair::IOPair(char fileName[]){
                         }
                     }
                 }
-                this->grayMap[i][j] = atoi(intbuf);
+                int rawPixel = atoi(intbuf);
+                this->grayMap[i][j] = rawPixel/255.0;
             }
         }
     }
@@ -111,7 +113,7 @@ IOPair::IOPair(char fileName[]){
 
 void IOPair::initGrayMap(int rows, int cols){
     for (int i = 0; i < rows; i++){
-        vector<int> row (cols, 0);
+        vector<double> row (cols, 0);
         this->grayMap.push_back(row);
     }
 }

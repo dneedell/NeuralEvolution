@@ -43,10 +43,12 @@ private:
     double learnRate;
     int activeFunc;
     
-    void resetOutputSetTarget(IOPair* input);
+    //@Deprecated void resetOutputSetTarget(IOPair* input);
+    void resetOutputAndHidden(IOPair* input);
+    
     void grayMapSetInput(IOPair* input);
     void setBiasNode();
-    void setAndCalc(int index, int value);
+    void setAndCalc(int index, double value);
     void calcInputNodeContribution(InputNode* input);
     
     void activateAllHidden();
