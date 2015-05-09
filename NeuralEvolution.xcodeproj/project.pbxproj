@@ -33,6 +33,7 @@
 /* Begin PBXFileReference section */
 		05974A1A1AFDAE0E00245CF6 /* Population.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Population.cpp; sourceTree = "<group>"; };
 		05974A1B1AFDAE0E00245CF6 /* Population.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Population.h; sourceTree = "<group>"; };
+		05974A1E1AFE8FE100245CF6 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6399F44E1AE556B60003E007 /* NeuralEvolution */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NeuralEvolution; sourceTree = BUILT_PRODUCTS_DIR; };
 		6399F4511AE556B60003E007 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6399F4581AE557C50003E007 /* InputNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputNode.cpp; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				6399F4511AE556B60003E007 /* main.cpp */,
+				05974A1E1AFE8FE100245CF6 /* Constants.h */,
 				6399F4611AE558510003E007 /* NeuralEvolAlg.cpp */,
 				6399F4621AE558510003E007 /* NeuralEvolAlg.h */,
 				05974A1A1AFDAE0E00245CF6 /* Population.cpp */,

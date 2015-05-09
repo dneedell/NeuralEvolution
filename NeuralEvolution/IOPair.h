@@ -26,13 +26,9 @@
 #include <sstream>
 #include <vector>
 
-using namespace std;
+#include "Constants.h"
 
-//From the dataset obtained from CMU
-const string names[] = {"an2i", "at33", "boland", "bpm", "ch4f", "cheyer", "choon",
-                        "danieln", "glickman", "karyadi", "kawamura", "kk49",
-                        "megak", "mitchell", "night", "phoebe", "saavik", "steffi",
-                        "sz24", "tammo"};
+using namespace std;
 
 class IOPair{
 public:

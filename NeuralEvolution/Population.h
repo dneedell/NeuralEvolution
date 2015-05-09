@@ -15,12 +15,7 @@
 #include <vector>
 
 #include "NeuralNet.h"
-
-const int OUTPUTNODES = 20;
-const int HIDDENNODES = 20;
-
-const int M = 2;
-const int k = 1;
+#include "Constants.h"
 
 //Sorts ascending by fitness (lowest to highest)
 static bool sortByFitness(NeuralNet* firstIndiv, NeuralNet* secondIndiv) { return firstIndiv->getFitness() < secondIndiv->getFitness(); }
@@ -33,6 +28,9 @@ public:
     //Getter
     vector<NeuralNet*> getIndividuals() { return this->individuals; }
     vector<NeuralNet*> getBreedingPool() { return this->breedingPool; }
+    
+    //Setters
+    void setIndividuals(vector<NeuralNet*> individuals) { this->individuals = individuals; }
     
     void selection(string select);
     void breed(string crossover, double probCrossover, double probMutation);

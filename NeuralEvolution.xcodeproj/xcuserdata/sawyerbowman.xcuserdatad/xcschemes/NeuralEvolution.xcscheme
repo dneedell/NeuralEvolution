@@ -61,11 +61,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "../lists/straightrnd_train.list.txt"
+            argument = "../lists/straighteven_train.list.txt"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "../lists/straightrnd_test1.list.txt"
+            argument = "../lists/straighteven_test1.list.txt"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -73,7 +73,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "ts"
+            argument = "bs"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -89,12 +89,12 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "100"
+            argument = "5"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "50"
-            isEnabled = "NO">
+            argument = "8"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

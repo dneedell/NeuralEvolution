@@ -22,14 +22,14 @@
 
 #include "IOPair.h"
 #include "Problem.h"
+#include "Constants.h"
 
 using namespace::std;
-
-const double e = exp(1.0);
 
 class NeuralNet {
 public:
     //Constructor
+    NeuralNet();
     NeuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double learnRate);
     NeuralNet(vector<InputNode*> inputNodes, int numOutNodes, int numHiddenNodes,
                        double learnRate);
@@ -43,12 +43,22 @@ public:
     double getFitness() { return this->fitness; }
     void setFitness(double fitness) { this->fitness = fitness; }
     
-    void setTrainPercentages(vector<double> trainPercentages) { this->allTrainPercentages.push_back(trainPercentages); }
+    vector<double> getTrainPercentages() { return this->trainPercentages; }
+    void setTrainPercentages(vector<double> trainPercentages) { this->trainPercentages = trainPercentages; }
     
-    vector<double> getTestPercentages() { return this->testPercentages; }
-    void setTestPercentages(vector<double> testPercentages) { this->testPercentages = testPercentages; }
+    double getTestPercentages() { return this->testPercentages; }
+    void setTestPercentages(double testPercentages) { this->testPercentages = testPercentages; }
     
     vector<InputNode*> getInputNodes() { return this->inputNodes; }
+    
+    double getTrainTime() { return this->trainTime; }
+    void setTrainTime(double time) { this->trainTime = time; }
+    
+    double getTestTime() { return this->testTime; }
+    void setTestTime(double time) { this->testTime = time; }
+    
+    void printTestPercentages();
+    void printFinalTrainPercentages();
     
 private:
     vector<InputNode*> inputNodes;
@@ -59,8 +69,11 @@ private:
     int activeFunc;
     
     double fitness;
-    vector<vector<double> > allTrainPercentages;
-    vector<double> testPercentages;
+    vector<double> trainPercentages;
+    double testPercentages;
+    
+    double trainTime;
+    double testTime;
     
     void resetOutputAndHidden(IOPair* input);
     

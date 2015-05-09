@@ -15,13 +15,9 @@
 #include <sstream>
 #include <vector>
 
+#include "Constants.h"
+
 using namespace std;
-
-const double MAX = .15;
-const double MIN = -.15;
-
-const double CHANCECONNECT = .1;
-const bool FULLCONNECT = false;
 
 class InputNode{
 public:

@@ -11,6 +11,14 @@
 using namespace::std;
 
 /**
+ *
+ */
+
+NeuralNet::NeuralNet(){
+    this->fitness = 0;
+}
+
+/**
  *Initialize the neural network with a vector of input nodes and output nodes
  */
 
@@ -161,22 +169,25 @@ void NeuralNet::updateInputWeights(){
         double curVal = input->getValue();
         
         for (int j = 0; j < this->hiddenNodes.size(); j++){
-            HiddenNode* hidden = this->hiddenNodes[j];
-            double curHiddenWeight = input->getHiddenEdgeWeightForNode(j);
-            double hiddenPrime = hidden->getValuePrime();
-            
-            double sum = 0;
-            for (int i = 0; i < this->outputNodes.size(); i++){
-                OutputNode* output = this->outputNodes[i];
+            //only update weights if there is a connection
+            if (input->getConnections()[j]){
+                HiddenNode* hidden = this->hiddenNodes[j];
+                double curHiddenWeight = input->getHiddenEdgeWeightForNode(j);
+                double hiddenPrime = hidden->getValuePrime();
                 
-                double curOutWeight = hidden->getOutputEdgeWeightForNode(i);
-                double err = output->getError();
-                double valOutPrime = output->getValuePrime();
-                
-                sum += curOutWeight*err*valOutPrime;
+                double sum = 0;
+                for (int i = 0; i < this->outputNodes.size(); i++){
+                    OutputNode* output = this->outputNodes[i];
+                    
+                    double curOutWeight = hidden->getOutputEdgeWeightForNode(i);
+                    double err = output->getError();
+                    double valOutPrime = output->getValuePrime();
+                    
+                    sum += curOutWeight*err*valOutPrime;
+                }
+                sum *= hiddenPrime;
+                input->setHiddenEdgeWeightForNode(j, curHiddenWeight+(this->learnRate*curVal*sum));
             }
-            sum *= hiddenPrime;
-            input->setHiddenEdgeWeightForNode(j, curHiddenWeight+(this->learnRate*curVal*sum));
         }
     }
 }
@@ -216,16 +227,19 @@ void NeuralNet::setAndCalc(int index, double value){
 
 void NeuralNet::calcInputNodeContribution(InputNode* input){
     for (int i = 0; i < this->hiddenNodes.size(); i++){
-        HiddenNode* hidden = this->hiddenNodes[i];
-        
-        //Get value of input node and edge that goes to current output node
-        double curVal = input->getValue();
+        //only calculate if there is a connection
+        if (input->getConnections()[i]){
+            HiddenNode* hidden = this->hiddenNodes[i];
+            
+            //Get value of input node and edge that goes to current output node
+            double curVal = input->getValue();
 
-        double curEdge = input->getHiddenEdgeWeightForNode(i);
-        
-        //Add the curVal*curEdge to existing value of output node
-        double newInVal = hidden->getInValue() + curVal * curEdge;
-        hidden->setInValue(newInVal);
+            double curEdge = input->getHiddenEdgeWeightForNode(i);
+            
+            //Add the curVal*curEdge to existing value of output node
+            double newInVal = hidden->getInValue() + curVal * curEdge;
+            hidden->setInValue(newInVal);
+        }
     }
 }
 
@@ -460,6 +474,24 @@ vector<bool> NeuralNet::mutate(vector<bool> newSequence, double mutProb){
         }
     }
     return newSequence;
+}
+
+/**
+ *
+ */
+
+void NeuralNet::printTestPercentages(){
+    cout << "Tests satisfied: " << this->testPercentages << endl;
+}
+
+/**
+ *
+ */
+
+void NeuralNet::printFinalTrainPercentages(){
+    for (int i = 0; i < (int) this->trainPercentages.size(); i++){
+        cout << "Last round of training satisfied: " << this->trainPercentages[EPOCHS-1] << endl;
+    }
 }
 
 

@@ -14,15 +14,20 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <string>
+#include <future>
+#include <chrono>
+#include <ctime>
+#include <time.h>
+#include <sys/time.h>
 
 #include "Problem.h"
 #include "IOPair.h"
 #include "NeuralNet.h"
 #include "Population.h"
+#include "Constants.h"
 
 using namespace::std;
-
-const bool EVOLVE = true;
 
 class NeuralEvolAlg{
 public:
@@ -33,6 +38,12 @@ public:
     
     //main method
     void run();
+    
+    double runTraining(NeuralNet* net);
+    double runTests(NeuralNet* net);
+    
+    //Getter
+    int getEpochs() { return this->epochs; }
     
 private:
     Problem* training;
@@ -52,9 +63,20 @@ private:
     int getNumInputNodes();
     
     void runTrainingAndTesting(NeuralNet* net);
+    void runFutures(vector<NeuralNet*> nets);
     
-    double runTraining(NeuralNet* net);
-    double runTests(NeuralNet* net);
+    void printNetPercentages(vector<NeuralNet*> nets);
+    
+    NeuralNet* getBestNetPerGen(vector<NeuralNet*> nets);
+    
+    void writeToEANNTest(double learnRate, double crossProb, double mutProb,
+                         int genNum, NeuralNet* genBest);
+    
+    void writeToEANNTrain(double learnRate, double crossProb, double mutProb,
+                          int genNum, NeuralNet* genBest);
+    
+    void writeToANNTrain(int totEpocs, double learnRate, NeuralNet* best);
+    void writeToAnnTest(int totalEpocs, double learnRate, NeuralNet* best);
     
 };
 

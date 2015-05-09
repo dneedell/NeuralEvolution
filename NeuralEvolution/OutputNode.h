@@ -15,6 +15,8 @@
 #include <sstream>
 #include <vector>
 
+#include "Constants.h"
+
 using namespace std;
 
 class OutputNode {

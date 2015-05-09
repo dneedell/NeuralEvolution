@@ -34,7 +34,7 @@ InputNode::InputNode(vector<bool> connections){
 
 void InputNode::calcAllInitialEdgeWeight(int hiddenNum){
     for (int i = 0; i < hiddenNum; i++){
-        if (FULLCONNECT){
+        if (!EVOLVE){
             this->hiddenEdgeWeights.push_back(calcEdgeWeight());
             this->connections.push_back(true);
         }
@@ -58,7 +58,7 @@ void InputNode::calcAllInitialEdgeWeight(int hiddenNum){
 
 void InputNode::calcInitialEdgeWeightFromConnections(vector<bool> connections){
     for (int i = 0; i < connections.size(); i++){
-        if (connections.size()){
+        if (connections[i]){
             this->hiddenEdgeWeights.push_back(calcEdgeWeight());
             this->connections.push_back(true);
         }

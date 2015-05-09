@@ -8,13 +8,13 @@
 
 #include <iostream>
 #include <stdio.h>
-#include "neuralEvolAlg.h"
+
+#include "NeuralEvolAlg.h"
+#include "Constants.h"
 
 using namespace::std;
 
 //Constant Variables:
-
-const int epochs = 100;
 
 int main(int argc, const char * argv[]) {
    
@@ -63,7 +63,7 @@ int main(int argc, const char * argv[]) {
         //New instance of the Neural Evolutionary algorithm
         NeuralEvolAlg* alg = new NeuralEvolAlg(trainName, testname, learnRate,
                                                selection, crossover, crossProb,
-                                               mutProb, genNum, pop, epochs);
+                                               mutProb, genNum, pop, EPOCHS);
         
         //Run the algorithm
         alg->run();
