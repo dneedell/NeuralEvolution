@@ -53,7 +53,7 @@ void NeuralEvolAlg::run(){
 //                runTrainingAndTesting(net);
 //            }
             
-            printNetPercentages(nets);
+            //printNetPercentages(nets);
             
             //Selection
             this->population->selection(this->selection);
@@ -78,7 +78,10 @@ void NeuralEvolAlg::run(){
         
         vector<NeuralNet*> nets;
         nets.push_back(net);
-        printNetPercentages(nets);
+        //printNetPercentages(nets);
+        
+        writeToAnnTest(this->epochs, this->learnRate, net);
+        writeToANNTrain(this->epochs, this->learnRate, net);
     }
 }
 
@@ -282,7 +285,7 @@ NeuralNet* NeuralEvolAlg::getBestNetPerGen(vector<NeuralNet*> nets){
  *
  */
 
-void writeToEANNTest(double learnRate, double crossProb, double mutProb,
+void NeuralEvolAlg::writeToEANNTest(double learnRate, double crossProb, double mutProb,
                      int genNum, NeuralNet* genBest){
     ofstream csvFile;
     csvFile.open("/Users/sbowman/Desktop/EANN_test.csv", std::ios_base::app);
@@ -297,7 +300,7 @@ void writeToEANNTest(double learnRate, double crossProb, double mutProb,
  *
  */
 
-void writeToEANNTrain(double learnRate, double crossProb, double mutProb,
+void NeuralEvolAlg::writeToEANNTrain(double learnRate, double crossProb, double mutProb,
                       int genNum, NeuralNet* genBest){
     ofstream csvFile;
     csvFile.open("/Users/sbowman/Desktop/EANN_train.csv", std::ios_base::app);
@@ -315,7 +318,7 @@ void writeToEANNTrain(double learnRate, double crossProb, double mutProb,
  *
  */
 
-void writeToANNTrain(int totEpocs, double learnRate, NeuralNet* best){
+void NeuralEvolAlg::writeToANNTrain(int totEpocs, double learnRate, NeuralNet* best){
     ofstream csvFile;
     csvFile.open("/Users/sbowman/Desktop/ANN_train.csv", std::ios_base::app);
     
@@ -332,7 +335,7 @@ void writeToANNTrain(int totEpocs, double learnRate, NeuralNet* best){
  *
  */
 
-void writeToAnnTest(int totEpocs, double learnRate, NeuralNet* best){
+void NeuralEvolAlg::writeToAnnTest(int totEpocs, double learnRate, NeuralNet* best){
     ofstream csvFile;
     csvFile.open("/Users/sbowman/Desktop/ANN_test.csv", std::ios_base::app);
     
