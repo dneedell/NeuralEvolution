@@ -31,9 +31,24 @@ class NeuralNet {
 public:
     //Constructor
     NeuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double learnRate);
+    NeuralNet(vector<InputNode*> inputNodes, int numOutNodes, int numHiddenNodes,
+                       double learnRate);
     
     bool train(IOPair* train);
     bool test(IOPair* test);
+    
+    vector<NeuralNet*> breed(NeuralNet* indiv, string cross, double crossProb, double mutProb);
+    
+    //Getters
+    double getFitness() { return this->fitness; }
+    void setFitness(double fitness) { this->fitness = fitness; }
+    
+    void setTrainPercentages(vector<double> trainPercentages) { this->allTrainPercentages.push_back(trainPercentages); }
+    
+    vector<double> getTestPercentages() { return this->testPercentages; }
+    void setTestPercentages(vector<double> testPercentages) { this->testPercentages = testPercentages; }
+    
+    vector<InputNode*> getInputNodes() { return this->inputNodes; }
     
 private:
     vector<InputNode*> inputNodes;
@@ -43,7 +58,10 @@ private:
     double learnRate;
     int activeFunc;
     
-    //@Deprecated void resetOutputSetTarget(IOPair* input);
+    double fitness;
+    vector<vector<double> > allTrainPercentages;
+    vector<double> testPercentages;
+    
     void resetOutputAndHidden(IOPair* input);
     
     void grayMapSetInput(IOPair* input);
@@ -67,6 +85,8 @@ private:
     double sigmoidPrime(double val);
     double sigmoidFunction(double val);
     
+    vector<vector<bool> > crossover(vector<bool> firstSequence, vector<bool> secondSequence, string method);
+    vector<bool> mutate(vector<bool> newSequence, double mutProb);
 };
 
 

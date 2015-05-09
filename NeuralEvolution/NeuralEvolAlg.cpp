@@ -18,7 +18,7 @@
 
 NeuralEvolAlg::NeuralEvolAlg(string trainFile, string testFile, double learnRate,
                              string selection, string crossover, double crossProb,
-                             double mutProb, int genNum, int epochs){
+                             double mutProb, int genNum, int pop, int epochs){
 
     this->training = new Problem(trainFile);
     this->tests = new Problem(testFile);
@@ -29,12 +29,11 @@ NeuralEvolAlg::NeuralEvolAlg(string trainFile, string testFile, double learnRate
     this->crossProb = crossProb;
     this->mutProb = mutProb;
     this->genNum = genNum;
+    this->popSize = pop;
     this->epochs = epochs;
     
     int inputNum = getNumInputNodes();
-    
-    this->net = new NeuralNet(inputNum, OUTPUTNODES, HIDDENNODES, this->learnRate);
-    
+    this->population = new Population(this->popSize, inputNum, this->learnRate);
 }
 
 /**
@@ -43,33 +42,64 @@ NeuralEvolAlg::NeuralEvolAlg(string trainFile, string testFile, double learnRate
  *problems
  */
 
-vector<double> NeuralEvolAlg::run(){
-    //get the correct training set from the problem class
-    vector<IOPair*> problems;
-    problems = this->training->getGrayMaps();
-    
+void NeuralEvolAlg::run(){
+    if (EVOLVE){
+        for (int g = 0; g < this->genNum; g++){
+            vector<NeuralNet*> nets = this->population->getIndividuals();
+            
+            //Run training and testing
+            for (int n = 0; n < nets.size(); n++){
+                NeuralNet* net = nets[n];
+                runTrainingAndTesting(net);
+            }
+            
+            //Selection
+            this->population->selection(this->selection);
+            
+            //Breeding
+            this->population->breed(this->crossover, this->crossProb, this->mutProb);
+        }
+    }
+    //Else do fully connected input to hidden, no evolution
+    else {
+        NeuralNet* net = new NeuralNet(getNumInputNodes(), OUTPUTNODES, HIDDENNODES, this->learnRate);
+        runTrainingAndTesting(net);
+    }
+}
+
+/**
+ *Runs all the training and testing
+ */
+
+void NeuralEvolAlg::runTrainingAndTesting(NeuralNet* net){
     //For each epoch, run all examples and store percentage satisfied per epoch
-    vector<double> percentages;
+    vector<double> trainPercentages;
     for (int i = 0; i < this->epochs; i++){
-        percentages.push_back(runTraining(problems));
+        trainPercentages.push_back(runTraining(net));
     }
     
-    //Store the testing percentage in the back of the vector
-    //percentages.push_back(runTests());
+    //Store the testing percentage as fitness for the neural net and in the back of the vector
+    double classificationPercent = runTests(net);
+    net->setFitness(classificationPercent);
     
-    return percentages;
+    vector<double> testPercentages = net->getTestPercentages();
+    testPercentages.push_back(classificationPercent);
+    net->setTestPercentages(testPercentages);
 }
 
 /**
  *Runs all problems from training set
  */
 
-double NeuralEvolAlg::runTraining(vector<IOPair*> problems){
+double NeuralEvolAlg::runTraining(NeuralNet* net){
+    //get the correct vector of problems
+    vector<IOPair*> problems = this->training->getGrayMaps();
+    
     int satisfied = 0;
     int total = 0;
     
     for (IOPair* problem : problems){
-        if (this->net->train(problem)){
+        if (net->train(problem)){
             satisfied++;
         }
         total++;
@@ -86,15 +116,15 @@ double NeuralEvolAlg::runTraining(vector<IOPair*> problems){
  *calculates percent of examples satisfied in the entire set.
  */
 
-double NeuralEvolAlg::runTests(){
+double NeuralEvolAlg::runTests(NeuralNet* net){
     //get the correct vector of problems
-    vector<IOPair*> problems = this->training->getGrayMaps();
+    vector<IOPair*> problems = this->tests->getGrayMaps();
 
     int satisfied = 0;
     int total = 0;
     
     for (IOPair* test : problems){
-        if (this->net->test(test)){
+        if (net->test(test)){
             satisfied++;
         }
         total++;

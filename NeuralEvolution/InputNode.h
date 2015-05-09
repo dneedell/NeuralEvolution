@@ -20,10 +20,14 @@ using namespace std;
 const double MAX = .15;
 const double MIN = -.15;
 
+const double CHANCECONNECT = .1;
+const bool FULLCONNECT = false;
+
 class InputNode{
 public:
     //Constructor (default and for training/testing)
     InputNode(int hiddenNum);
+    InputNode(vector<bool> connections);
     
     //Getters and Setters
     double getValue() { return this->value; }
@@ -33,11 +37,16 @@ public:
     double getHiddenEdgeWeightForNode(int nodeNum) { return this->hiddenEdgeWeights[nodeNum]; }
     void setHiddenEdgeWeightForNode(int nodeNum, double edgeWeight) { this->hiddenEdgeWeights[nodeNum] = edgeWeight; }
     
+    vector<bool> getConnections() { return this->connections; }
+    
 private:
     double value;
     vector<double> hiddenEdgeWeights;
+    vector<bool> connections;
     
     void calcAllInitialEdgeWeight(int outputNum);
+    void calcInitialEdgeWeightFromConnections(vector<bool> connections);
+    double calcEdgeWeight();
     
 };
 

@@ -38,6 +38,31 @@ NeuralNet::NeuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double
 }
 
 /**
+ *
+ */
+
+NeuralNet::NeuralNet(vector<InputNode*> inputNodes, int numOutNodes, int numHiddenNodes,
+                     double learnRate){
+    this->inputNodes = inputNodes;
+    
+    //bias node
+    this->inputNodes.push_back(new InputNode(numHiddenNodes));
+    
+    //create a new vector of hidden nodes
+    for (int i = 0; i < numHiddenNodes; i++){
+        this->hiddenNodes.push_back(new HiddenNode(numOutNodes));
+    }
+    
+    //create a new vector of output nodes with target values initialized
+    for (int i = 0; i < numOutNodes; i++){
+        this->outputNodes.push_back(new OutputNode());
+    }
+    
+    //Assign learning rate and activation function from command line args
+    this->learnRate = learnRate;
+}
+
+/**
  *Train the neural network!
  */
 
@@ -331,6 +356,110 @@ void NeuralNet::resetOutputAndHidden(IOPair* input){
     for (HiddenNode* hidden : this->hiddenNodes){
         hidden->clearAllProperties();
     }
+}
+
+/**
+ *
+ */
+
+vector<NeuralNet*> NeuralNet::breed(NeuralNet* parent2, string cross, double crossProb, double mutProb){
+    vector<bool> newSequence;
+    vector<bool> newSequence2;
+    vector<InputNode*> newInputs1;
+    vector<InputNode*> newInputs2;
+    
+    vector<NeuralNet*> siblings;
+    
+    double crossoverProb = (double)rand()/RAND_MAX;
+    if (crossProb > crossoverProb){
+        //Breed two nodes' connections, create resulting input node from connections
+        vector<InputNode*> parent2InputNodes = parent2->getInputNodes();
+        //exclude the bias node (will set later)
+        for (int i = 0; i < this->inputNodes.size()-1; i++){
+            vector<bool> parent1Connections = this->inputNodes[i]->getConnections();
+            vector<bool> parent2Connections = parent2InputNodes[i]->getConnections();
+            vector<vector<bool> > sequences = crossover(parent1Connections, parent2Connections, cross);
+            
+            //perform mutation
+            newSequence = mutate(sequences[0], mutProb);
+            newSequence2 = mutate(sequences[1], mutProb);
+            newInputs1.push_back(new InputNode(newSequence));
+            newInputs2.push_back(new InputNode(newSequence2));
+        }
+    }
+    else {
+        newInputs1 = this->inputNodes;
+        newInputs2 = parent2->getInputNodes();
+    }
+    
+    siblings.push_back(new NeuralNet(newInputs1, (int) this->outputNodes.size(),
+                                      (int) this->hiddenNodes.size(), this->learnRate));
+    
+    siblings.push_back(new NeuralNet(newInputs2, (int) this->outputNodes.size(),
+                                     (int) this->hiddenNodes.size(), this->learnRate));
+    return siblings;
+}
+
+/**
+ *This method strictly performs the crossover portion of breeding. It creates
+ *one new genetic sequence, either by crossing on a single point or by randomly
+ *selecting genes from each parent sequence.
+ */
+
+vector<vector<bool> > NeuralNet::crossover(vector<bool> firstSequence, vector<bool> secondSequence,
+                                  string method){
+    vector<vector<bool> > bothSequences;
+    vector<bool> newSequence;
+    vector<bool> newSequence2;
+    if (method == "1c"){
+        int index = rand() % firstSequence.size();
+        newSequence.insert(newSequence.end(), firstSequence.begin(), firstSequence.begin()+index);
+        newSequence.insert(newSequence.end(), secondSequence.begin()+index, secondSequence.end());
+        
+        newSequence2.insert(newSequence2.end(), secondSequence.begin(), secondSequence.begin()+index);
+        newSequence2.insert(newSequence2.end(), firstSequence.begin()+index, firstSequence.end());
+    }
+    else {
+        int count = 0;
+        while (newSequence.size() != firstSequence.size()){
+            int randomBit = rand() % 2;
+            if (randomBit == 0){
+                newSequence.push_back(firstSequence[count]);
+                newSequence2.push_back(secondSequence[count]);
+                count++;
+            }
+            else {
+                newSequence.push_back(secondSequence[count]);
+                newSequence2.push_back(firstSequence[count]);
+                count++;
+            }
+        }
+    }
+    
+    bothSequences.push_back(newSequence);
+    bothSequences.push_back(newSequence2);
+    
+    return bothSequences;
+}
+
+/**
+ *This method strictly performs the mutation portion of the breeding. With some
+ *probability, the gene in the child sequence will be flipped (ex. true to false).
+ */
+
+vector<bool> NeuralNet::mutate(vector<bool> newSequence, double mutProb){
+    for (int i = 0; i < newSequence.size(); i++){
+        double randomProb = (double)rand()/RAND_MAX;
+        if (mutProb > randomProb){
+            if (newSequence[i] == true){
+                newSequence[i] = false;
+            }
+            else {
+                newSequence[i] = true;
+            }
+        }
+    }
+    return newSequence;
 }
 
 

@@ -14,7 +14,7 @@ using namespace::std;
 
 //Constant Variables:
 
-const int epochs = 75;
+const int epochs = 100;
 
 int main(int argc, const char * argv[]) {
    
@@ -22,7 +22,7 @@ int main(int argc, const char * argv[]) {
     
     //Make sure number of command line arguments is correct (print if not)
 
-    if (argc != 9){
+    if (argc != 10){
         cout << "You've entered an incorrect number of arguments to the program!" << endl;
         cout << "Please enter the following parameters: " << endl;
         cout << "   training file   = the name of the file to train on (string)" << endl;
@@ -38,6 +38,7 @@ int main(int argc, const char * argv[]) {
         cout << "   pC              = crossover probability (double)" << endl;
         cout << "   pM              = mutation probability (double)" << endl;
         cout << "   generations     = max number of generations to run (int)" << endl;
+        cout << "   population size = number of neural nets (individuals) (int)" << endl;
         //cout << "   epochs          = number of times to train net (int)" << endl;
         exit(0);
         
@@ -55,12 +56,14 @@ int main(int argc, const char * argv[]) {
         double crossProb = stod(argv[6]);
         double mutProb = stod(argv[7]);
         int genNum = stoi(argv[8]);
+        int pop = stoi(argv[9]);
+        
         //int epochs = stoi(argv[9]);
         
         //New instance of the Neural Evolutionary algorithm
         NeuralEvolAlg* alg = new NeuralEvolAlg(trainName, testname, learnRate,
                                                selection, crossover, crossProb,
-                                               mutProb, genNum, epochs);
+                                               mutProb, genNum, pop, epochs);
         
         //Run the algorithm
         alg->run();

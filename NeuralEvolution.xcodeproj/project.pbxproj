@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05974A1C1AFDAE0E00245CF6 /* Population.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05974A1A1AFDAE0E00245CF6 /* Population.cpp */; };
 		6399F4521AE556B60003E007 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6399F4511AE556B60003E007 /* main.cpp */; };
 		6399F45A1AE557C50003E007 /* InputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6399F4581AE557C50003E007 /* InputNode.cpp */; };
 		6399F45D1AE557D80003E007 /* OutputNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6399F45B1AE557D80003E007 /* OutputNode.cpp */; };
@@ -30,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		05974A1A1AFDAE0E00245CF6 /* Population.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Population.cpp; sourceTree = "<group>"; };
+		05974A1B1AFDAE0E00245CF6 /* Population.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Population.h; sourceTree = "<group>"; };
 		6399F44E1AE556B60003E007 /* NeuralEvolution */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NeuralEvolution; sourceTree = BUILT_PRODUCTS_DIR; };
 		6399F4511AE556B60003E007 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6399F4581AE557C50003E007 /* InputNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputNode.cpp; sourceTree = "<group>"; };
@@ -81,6 +84,8 @@
 				6399F4511AE556B60003E007 /* main.cpp */,
 				6399F4611AE558510003E007 /* NeuralEvolAlg.cpp */,
 				6399F4621AE558510003E007 /* NeuralEvolAlg.h */,
+				05974A1A1AFDAE0E00245CF6 /* Population.cpp */,
+				05974A1B1AFDAE0E00245CF6 /* Population.h */,
 				6399F4641AE5587E0003E007 /* NeuralNet.cpp */,
 				6399F4651AE5587E0003E007 /* NeuralNet.h */,
 				6399F46A1AE558DA0003E007 /* Problem.cpp */,
@@ -157,6 +162,7 @@
 				6399F4631AE558510003E007 /* NeuralEvolAlg.cpp in Sources */,
 				6399F45A1AE557C50003E007 /* InputNode.cpp in Sources */,
 				6399F4691AE558AB0003E007 /* IOPair.cpp in Sources */,
+				05974A1C1AFDAE0E00245CF6 /* Population.cpp in Sources */,
 				6399F4661AE5587E0003E007 /* NeuralNet.cpp in Sources */,
 				6399F4601AE558020003E007 /* HiddenNode.cpp in Sources */,
 				6399F46C1AE558DA0003E007 /* Problem.cpp in Sources */,

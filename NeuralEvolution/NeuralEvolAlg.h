@@ -18,26 +18,25 @@
 #include "Problem.h"
 #include "IOPair.h"
 #include "NeuralNet.h"
+#include "Population.h"
 
 using namespace::std;
 
-const int OUTPUTNODES = 20;
-const int HIDDENNODES = 20;
+const bool EVOLVE = true;
 
 class NeuralEvolAlg{
 public:
     //Constructor function
     NeuralEvolAlg(string newTrainFile, string newTestFile, double learnRate,
                   string selection, string crossover, double crossProb,
-                  double mutProb, int genNum, int epochs);
+                  double mutProb, int genNum, int pop, int epochs);
     
     //main method
-    vector<double> run();
+    void run();
     
 private:
     Problem* training;
     Problem* tests;
-    NeuralNet* net;
     
     double learnRate;
     string selection;
@@ -45,12 +44,17 @@ private:
     double crossProb;
     double mutProb;
     int genNum;
+    int popSize;
     int epochs;
+    
+    Population* population;
     
     int getNumInputNodes();
     
-    double runTraining(vector<IOPair*> problems);
-    double runTests();
+    void runTrainingAndTesting(NeuralNet* net);
+    
+    double runTraining(NeuralNet* net);
+    double runTests(NeuralNet* net);
     
 };
 

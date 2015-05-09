@@ -19,6 +19,14 @@ InputNode::InputNode(int hiddenNum){
 }
 
 /**
+ *
+ */
+
+InputNode::InputNode(vector<bool> connections){
+    calcInitialEdgeWeightFromConnections(connections);
+}
+
+/**
  *The number of output edges from an input node corresponds to the number of
  *hidden nodes. Thus, Hidden Node 0 (in the vector) corresponds to the 0th output
  *edge from each Hidden Node's vector or output edges.
@@ -26,8 +34,50 @@ InputNode::InputNode(int hiddenNum){
 
 void InputNode::calcAllInitialEdgeWeight(int hiddenNum){
     for (int i = 0; i < hiddenNum; i++){
-        double f = (double)rand() / RAND_MAX;
-        double val = MIN + f * (MAX - MIN);
-        this->hiddenEdgeWeights.push_back(val);
+        if (FULLCONNECT){
+            this->hiddenEdgeWeights.push_back(calcEdgeWeight());
+            this->connections.push_back(true);
+        }
+        else {
+            double chance = (double)rand() / RAND_MAX;
+            if (chance < CHANCECONNECT){
+                this->hiddenEdgeWeights.push_back(calcEdgeWeight());
+                this->connections.push_back(true);
+            }
+            else{
+                this->hiddenEdgeWeights.push_back(0);
+                this->connections.push_back(false);
+            }
+        }
     }
 }
+
+/**
+ *
+ */
+
+void InputNode::calcInitialEdgeWeightFromConnections(vector<bool> connections){
+    for (int i = 0; i < connections.size(); i++){
+        if (connections.size()){
+            this->hiddenEdgeWeights.push_back(calcEdgeWeight());
+            this->connections.push_back(true);
+        }
+        else {
+            this->hiddenEdgeWeights.push_back(0);
+            this->connections.push_back(false);
+        }
+    }
+}
+
+/**
+ *
+ */
+
+double InputNode::calcEdgeWeight(){
+    double f = (double)rand() / RAND_MAX;
+    return MIN + f * (MAX - MIN);
+}
+
+
+
+
