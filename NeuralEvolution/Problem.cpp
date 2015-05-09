@@ -28,6 +28,7 @@ Problem::Problem(string fileName) {
             allGrayMaps.push_back(new IOPair(imageFile));
         }
     }
-    
     problemFile.close();
 }
+
+

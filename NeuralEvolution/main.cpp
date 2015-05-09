@@ -14,8 +14,6 @@
 
 using namespace::std;
 
-//Constant Variables:
-
 int main(int argc, const char * argv[]) {
    
     srand( (int) time( NULL ) );
@@ -57,8 +55,6 @@ int main(int argc, const char * argv[]) {
         double mutProb = stod(argv[7]);
         int genNum = stoi(argv[8]);
         int pop = stoi(argv[9]);
-        
-        //int epochs = stoi(argv[9]);
         
         //New instance of the Neural Evolutionary algorithm
         NeuralEvolAlg* alg = new NeuralEvolAlg(trainName, testname, learnRate,
