@@ -146,7 +146,8 @@ void NeuralEvolAlg::runTrainingAndTesting(NeuralNet* net){
     
     //Store the testing percentage as fitness for the neural net and in the back of the vector
     gettimeofday(&start, NULL);
-    double classificationPercent = runTests(net) * 100;
+    double classificationPercent = runTests(net) * 100.0;
+    gettimeofday(&end, NULL);
     time = ((end.tv_sec  - start.tv_sec) * 1000000u + end.tv_usec - start.tv_usec) / 1.e6;
     
     net->setTestTime(time);
@@ -288,7 +289,7 @@ NeuralNet* NeuralEvolAlg::getBestNetPerGen(vector<NeuralNet*> nets){
 void NeuralEvolAlg::writeToEANNTest(double learnRate, double crossProb, double mutProb,
                      int genNum, NeuralNet* genBest){
     ofstream csvFile;
-    csvFile.open("/Users/sbowman/Desktop/EANN_test.csv", std::ios_base::app);
+    csvFile.open("/Users/sawyerbowman/Desktop/EANN_test.csv", std::ios_base::app);
     
     csvFile << learnRate << "," << crossProb << "," << mutProb << "," << genNum << "," <<
     genBest->getFitness() << "," << genBest->getTestTime() << endl;
@@ -303,7 +304,7 @@ void NeuralEvolAlg::writeToEANNTest(double learnRate, double crossProb, double m
 void NeuralEvolAlg::writeToEANNTrain(double learnRate, double crossProb, double mutProb,
                       int genNum, NeuralNet* genBest){
     ofstream csvFile;
-    csvFile.open("/Users/sbowman/Desktop/EANN_train.csv", std::ios_base::app);
+    csvFile.open("/Users/sawyerbowman/Desktop/EANN_train.csv", std::ios_base::app);
     
     vector<double> trainResults = genBest->getTrainPercentages();
     for (int i = 0; i < trainResults.size(); i++){
@@ -320,7 +321,7 @@ void NeuralEvolAlg::writeToEANNTrain(double learnRate, double crossProb, double 
 
 void NeuralEvolAlg::writeToANNTrain(int totEpocs, double learnRate, NeuralNet* best){
     ofstream csvFile;
-    csvFile.open("/Users/sbowman/Desktop/ANN_train.csv", std::ios_base::app);
+    csvFile.open("/Users/sawyerbowman/Desktop/ANN_train.csv", std::ios_base::app);
     
     vector<double> trainResults = best->getTrainPercentages();
     for (int i = 0; i < trainResults.size(); i++){
@@ -337,7 +338,7 @@ void NeuralEvolAlg::writeToANNTrain(int totEpocs, double learnRate, NeuralNet* b
 
 void NeuralEvolAlg::writeToAnnTest(int totEpocs, double learnRate, NeuralNet* best){
     ofstream csvFile;
-    csvFile.open("/Users/sbowman/Desktop/ANN_test.csv", std::ios_base::app);
+    csvFile.open("/Users/sawyerbowman/Desktop/ANN_test.csv", std::ios_base::app);
     
     double testResult = best->getTestPercentages();
     csvFile << totEpocs << "," << learnRate << "," << testResult << "," <<
