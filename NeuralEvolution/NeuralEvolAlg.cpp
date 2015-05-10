@@ -289,7 +289,7 @@ NeuralNet* NeuralEvolAlg::getBestNetPerGen(vector<NeuralNet*> nets){
 void NeuralEvolAlg::writeToEANNTest(double learnRate, double crossProb, double mutProb,
                      int genNum, NeuralNet* genBest){
     ofstream csvFile;
-    csvFile.open("/Users/sawyerbowman/Desktop/EANN_test.csv", std::ios_base::app);
+    csvFile.open("/Users/dneedell/Desktop/EANN_test.csv", std::ios_base::app);
     
     csvFile << learnRate << "," << crossProb << "," << mutProb << "," << genNum << "," <<
     genBest->getFitness() << "," << genBest->getTestTime() << endl;
@@ -304,7 +304,7 @@ void NeuralEvolAlg::writeToEANNTest(double learnRate, double crossProb, double m
 void NeuralEvolAlg::writeToEANNTrain(double learnRate, double crossProb, double mutProb,
                       int genNum, NeuralNet* genBest){
     ofstream csvFile;
-    csvFile.open("/Users/sawyerbowman/Desktop/EANN_train.csv", std::ios_base::app);
+    csvFile.open("/Users/dneedell/Desktop/EANN_train.csv", std::ios_base::app);
     
     vector<double> trainResults = genBest->getTrainPercentages();
     for (int i = 0; i < trainResults.size(); i++){
@@ -321,7 +321,7 @@ void NeuralEvolAlg::writeToEANNTrain(double learnRate, double crossProb, double 
 
 void NeuralEvolAlg::writeToANNTrain(int totEpocs, double learnRate, NeuralNet* best){
     ofstream csvFile;
-    csvFile.open("/Users/sawyerbowman/Desktop/ANN_train.csv", std::ios_base::app);
+    csvFile.open("/Users/dneedell/Desktop/ANN_train.csv", std::ios_base::app);
     
     vector<double> trainResults = best->getTrainPercentages();
     for (int i = 0; i < trainResults.size(); i++){
@@ -338,7 +338,7 @@ void NeuralEvolAlg::writeToANNTrain(int totEpocs, double learnRate, NeuralNet* b
 
 void NeuralEvolAlg::writeToAnnTest(int totEpocs, double learnRate, NeuralNet* best){
     ofstream csvFile;
-    csvFile.open("/Users/sawyerbowman/Desktop/ANN_test.csv", std::ios_base::app);
+    csvFile.open("/Users/dneedell/Desktop/ANN_test.csv", std::ios_base::app);
     
     double testResult = best->getTestPercentages();
     csvFile << totEpocs << "," << learnRate << "," << testResult << "," <<
