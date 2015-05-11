@@ -12,6 +12,11 @@
 
 using namespace std;
 
+/**
+ *Initializes a new problem, which is a list of images. Uses a file that dictates
+ *which images to read.
+ */
+
 Problem::Problem(string fileName) {
     //Try to read in the file containing each image location
     ifstream problemFile(fileName);

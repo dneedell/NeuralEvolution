@@ -219,7 +219,7 @@ int NeuralEvolAlg::getNumInputNodes(){
 }
 
 /**
- *
+ *A method to run futures (threads) to make runtime more efficient for EANN
  */
 
 void NeuralEvolAlg::runFutures(vector<NeuralNet*> nets){
@@ -254,7 +254,7 @@ void NeuralEvolAlg::runFutures(vector<NeuralNet*> nets){
 }
 
 /**
- *
+ *Prints the percentage of images successfully classified
  */
 
 void NeuralEvolAlg::printNetPercentages(vector<NeuralNet*> nets){
@@ -269,7 +269,7 @@ void NeuralEvolAlg::printNetPercentages(vector<NeuralNet*> nets){
 }
 
 /**
- *
+ *Gets the best neural net individual per generation
  */
 
 NeuralNet* NeuralEvolAlg::getBestNetPerGen(vector<NeuralNet*> nets){
@@ -283,7 +283,7 @@ NeuralNet* NeuralEvolAlg::getBestNetPerGen(vector<NeuralNet*> nets){
 }
 
 /**
- *
+ *Writes EANN test results to file
  */
 
 void NeuralEvolAlg::writeToEANNTest(double learnRate, double crossProb, double mutProb,
@@ -298,7 +298,7 @@ void NeuralEvolAlg::writeToEANNTest(double learnRate, double crossProb, double m
 }
 
 /**
- *
+ *Writes EANN train results to file
  */
 
 void NeuralEvolAlg::writeToEANNTrain(double learnRate, double crossProb, double mutProb,
@@ -316,7 +316,7 @@ void NeuralEvolAlg::writeToEANNTrain(double learnRate, double crossProb, double 
 }
 
 /**
- *
+ *Writes ANN train results to file
  */
 
 void NeuralEvolAlg::writeToANNTrain(int totEpocs, double learnRate, NeuralNet* best){
@@ -333,7 +333,7 @@ void NeuralEvolAlg::writeToANNTrain(int totEpocs, double learnRate, NeuralNet* b
 }
 
 /**
- *
+ *Writes ANN test results to file
  */
 
 void NeuralEvolAlg::writeToAnnTest(int totEpocs, double learnRate, NeuralNet* best){

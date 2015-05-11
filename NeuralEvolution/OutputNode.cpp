@@ -49,7 +49,7 @@ void OutputNode::clearAllProperties(){
 }
 
 /**
- *
+ *Prints the characteristics of an outputnode. Used for debugging.
  */
 
 void OutputNode::printCharacteristics(){

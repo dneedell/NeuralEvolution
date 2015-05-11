@@ -19,7 +19,7 @@ InputNode::InputNode(int hiddenNum){
 }
 
 /**
- *
+ *Creates a new input node with a given vector of connections
  */
 
 InputNode::InputNode(vector<bool> connections){
@@ -53,7 +53,7 @@ void InputNode::calcAllInitialEdgeWeight(int hiddenNum){
 }
 
 /**
- *
+ *Calculate edge weights for neural net based on a vector of given connections
  */
 
 void InputNode::calcInitialEdgeWeightFromConnections(vector<bool> connections){
@@ -70,7 +70,7 @@ void InputNode::calcInitialEdgeWeightFromConnections(vector<bool> connections){
 }
 
 /**
- *
+ *Calculates the edge weight upon initialization (random)
  */
 
 double InputNode::calcEdgeWeight(){

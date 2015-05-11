@@ -34,7 +34,7 @@ void HiddenNode::calcAllInitialEdgeWeight(int outputNum){
 }
 
 /**
- *
+ *Cleares the properties of a hidden node
  */
 
 void HiddenNode::clearAllProperties(){

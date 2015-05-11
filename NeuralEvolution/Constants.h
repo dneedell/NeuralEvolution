@@ -20,8 +20,8 @@
 using namespace std;
 
 const int EPOCHS = 50;
-const bool EVOLVE = false;
-//const bool EVOLVE = true;
+//const bool EVOLVE = false;
+const bool EVOLVE = true;
 const int NUMCORES = 4;
 const int OUTPUTNODES = 20;
 const int HIDDENNODES = 20;

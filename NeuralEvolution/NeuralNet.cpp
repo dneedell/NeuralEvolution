@@ -11,7 +11,7 @@
 using namespace::std;
 
 /**
- *
+ *Creates an empty neural net with a fitness of 0.
  */
 
 NeuralNet::NeuralNet(){
@@ -46,7 +46,7 @@ NeuralNet::NeuralNet(int numInNodes, int numOutNodes, int numHiddenNodes, double
 }
 
 /**
- *
+ *Initializes a new neural net with a given vector of input nodes.
  */
 
 NeuralNet::NeuralNet(vector<InputNode*> inputNodes, int numOutNodes, int numHiddenNodes,
@@ -373,7 +373,8 @@ void NeuralNet::resetOutputAndHidden(IOPair* input){
 }
 
 /**
- *
+ *Breeds together two neural nets via 1 point crossover. Produces two children.
+ *Mutates subsequent children.
  */
 
 vector<NeuralNet*> NeuralNet::breed(NeuralNet* parent2, string cross, double crossProb, double mutProb){
@@ -477,7 +478,7 @@ vector<bool> NeuralNet::mutate(vector<bool> newSequence, double mutProb){
 }
 
 /**
- *
+ *Prints the test result
  */
 
 void NeuralNet::printTestPercentages(){
@@ -485,7 +486,7 @@ void NeuralNet::printTestPercentages(){
 }
 
 /**
- *
+ *Prints the training results at last epoch
  */
 
 void NeuralNet::printFinalTrainPercentages(){
